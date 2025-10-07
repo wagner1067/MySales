@@ -29,7 +29,7 @@ export default tseslint.config(
       // Exemplo de regra TS que você tinha
       "@typescript-eslint/no-unused-vars": [
         "error",
-        { argsIgnorePattern: "^_" },
+        { argsIgnorePattern: false },
       ],
     },
   },
