@@ -1,2 +1,10 @@
 node_modules
 .env
+/build/
+/dist/
+.idea/
+.vscode/
+temp/
+coverage
+ormconfig.json
+dist
