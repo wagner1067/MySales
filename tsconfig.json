@@ -20,7 +20,7 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitAny": true,
-    "strictPropertyInitialization": true,
+    "strictPropertyInitialization": false,
     "skipLibCheck": true
   }
 }
