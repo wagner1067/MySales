@@ -7,7 +7,7 @@
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/http/server.ts",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",
-    "migration:create":  "cross-env MIGRATION_NAME=$npm_config_name ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create src/shared/typeorm/migrations/$npm_config_name",
+    "migration:create": "cross-env MIGRATION_NAME=$npm_config_name ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create src/shared/typeorm/migrations/$npm_config_name",
     "migration:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d src/shared/typeorm/data-source.ts"
   },
   "keywords": [],
@@ -17,6 +17,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
+    "@types/joi": "^17.2.2",
     "@types/node": "^24.5.2",
     "@typescript-eslint/eslint-plugin": "^8.45.0",
     "@typescript-eslint/parser": "^8.45.0",
@@ -31,6 +32,7 @@
     "typescript-eslint": "^8.45.0"
   },
   "dependencies": {
+    "celebrate": "^15.0.3",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^4.21.2",

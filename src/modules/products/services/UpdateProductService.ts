@@ -21,13 +21,13 @@ export default class UpdateProductService {
       throw new AppError("Produto não encontrado", 404);
     }
 
-    const productExists = await productsRepositories.findByName(name);
+    /*const productExists = await productsRepositories.findByName(name);
 
     if (productExists) {
       throw new AppError("Produto já com esse nome cadastrado", 409);
     }
 
-    product.name = name;
+    product.name = name;*/ //Não pode alterar o nome do produto para evitar confusão no estoque
     product.price = price;
     product.quantity = quantity;
 
