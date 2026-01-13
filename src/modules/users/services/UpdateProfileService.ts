@@ -28,7 +28,7 @@ export default class UpdateProfileService {
     if (email) {
       const userUpdateEmail = await usersRepositories.findByEmail(email);
 
-      if (userUpdateEmail) {
+      if (userUpdateEmail && userUpdateEmail.id !== user_id) {
         throw new AppError("Email ja cadastrado", 409);
       }
 

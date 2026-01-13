@@ -19,6 +19,6 @@ routes.use("/sessions", sessionRouter);
 routes.use("/avatars", avatarRouter);
 routes.use("/files", express.static(uploadConfig.directory));
 routes.use("/passwords", passwordRouter);
-routes.use("profiles", profileRouter);
+routes.use("/profiles", profileRouter);
 
 export default routes;
