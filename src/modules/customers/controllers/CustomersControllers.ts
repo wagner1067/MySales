@@ -19,10 +19,7 @@ export default class CustomersControllers {
     return response.json(customer);
   }
 
-  async CreateCustomer(
-    request: Request,
-    response: Response,
-  ): Promise<Response> {
+  async Create(request: Request, response: Response): Promise<Response> {
     const { name, email } = request.body;
     const createCustomer = new CreateCustomerService();
     const customer = await createCustomer.execute({ name, email });
