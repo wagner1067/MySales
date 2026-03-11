@@ -4,6 +4,7 @@ import {
   Entity,
   JoinColumn,
   ManyToMany,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -15,7 +16,7 @@ export class Order {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToMany(() => Customers)
+  @ManyToOne(() => Customers)
   @JoinColumn({ name: "customer_id" })
   customer: Customers;
 
