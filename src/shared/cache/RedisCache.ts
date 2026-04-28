@@ -23,4 +23,8 @@ export default class RedisCache {
 
     return parsedData;
   }
+
+  async invalidate(key: string): Promise<void> {
+    await this.client.del(key);
+  }
 }
