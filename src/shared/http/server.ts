@@ -6,6 +6,7 @@ import { errors } from "celebrate";
 import routes from "./routes";
 import ErrorHandleMiddleware from "@shared/middlewares/ErrorHandleMiddleware";
 import { AppDataSource } from "@shared/typeorm/data-source";
+import rateLimiter from "@shared/middlewares/rateLimiter";
 
 AppDataSource.initialize()
   .then(() => {
@@ -13,6 +14,8 @@ AppDataSource.initialize()
 
     app.use(cors());
     app.use(express.json());
+
+    app.use(rateLimiter);
 
     app.use(routes);
     app.use(errors());
