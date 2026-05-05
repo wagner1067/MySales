@@ -3,16 +3,8 @@ import { User } from "../infra/database/entities/User";
 import { usersRepositories } from "../infra/database/repositories/UsersRepositories";
 import { compare } from "bcrypt";
 import { Secret, sign } from "jsonwebtoken";
-
-interface ISenssionUser {
-  email: string;
-  password: string;
-}
-
-interface ISessionResponse {
-  user: User;
-  token: string;
-}
+import { ISenssionUser } from "../domain/models/ISenssionUser";
+import { ISessionResponse } from "../domain/models/ISessionResponse";
 
 export default class SessionUserService {
   async execute({ email, password }: ISenssionUser): Promise<ISessionResponse> {

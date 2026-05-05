@@ -4,11 +4,7 @@ import { usersRepositories } from "../infra/database/repositories/UsersRepositor
 import path from "path";
 import uploadConfig from "@config/upload";
 import fs from "fs";
-
-interface IUpdateUserAvatar {
-  userId: number;
-  avatarFilename: string;
-}
+import { IUpdateUserAvatar } from "../domain/models/IUpdateUserAvatar";
 
 export default class UpdateUserAvatarService {
   async execute({ userId, avatarFilename }: IUpdateUserAvatar): Promise<User> {

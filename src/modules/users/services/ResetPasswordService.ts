@@ -3,11 +3,7 @@ import { usersRepositories } from "../infra/database/repositories/UsersRepositor
 import { userTokensRepositories } from "../infra/database/repositories/UserTokensRepositories";
 import { isAfter, addHours } from "date-fns";
 import { hash } from "bcrypt";
-
-interface IResetPassword {
-  token: string;
-  password: string;
-}
+import { IResetPassword } from "../domain/models/IResetPassword";
 
 export default class ResetPasswordService {
   async execute({ token, password }: IResetPassword): Promise<void> {

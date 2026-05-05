@@ -1,10 +1,7 @@
 import AppError from "@shared/errors/AppError";
 import { User } from "../infra/database/entities/User";
 import { usersRepositories } from "../infra/database/repositories/UsersRepositories";
-
-interface IshowProfile {
-  user_id: number;
-}
+import { IshowProfile } from "../domain/models/IshowProfile";
 
 export default class ShowProfileService {
   async execute({ user_id }: IshowProfile): Promise<User> {

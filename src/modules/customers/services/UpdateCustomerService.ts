@@ -1,13 +1,7 @@
 import AppError from "@shared/errors/AppError";
 import { Customers } from "../infra/database/entities/Customers";
 import { customerRepositories } from "../infra/database/repositories/CustomerRepositories";
-
-interface IUpdateCustomer {
-  id: number;
-  name: string;
-  email: string;
-}
-
+import { IUpdateCustomer } from "../domain/models/IUpdateCustomer";
 export default class UpdateCustomerService {
   public async execute({
     id,

@@ -1,6 +1,7 @@
 import { IPagination } from "@shared/interface/pagination.interface";
 import { customerRepositories } from "../infra/database/repositories/CustomerRepositories";
 import { Customers } from "../infra/database/entities/Customers";
+import { IPaginationCustomer } from "../domain/models/IPaginationCustomer";
 
 export default class ListCustomerService {
   async execute(
@@ -21,6 +22,6 @@ export default class ListCustomerService {
       total_pages: totalPages,
       next_page: page < totalPages ? page + 1 : null,
       prev_page: page > 1 ? page - 1 : null,
-    } as IPagination<Customers>;
+    } as IPaginationCustomer;
   }
 }
