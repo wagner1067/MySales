@@ -1,6 +1,6 @@
 import AppError from "@shared/errors/AppError";
-import { orderRepositories } from "../database/repositories/OrderRepositories";
-import { Order } from "../database/entities/Order";
+import { orderRepositories } from "../infra/database/repositories/OrderRepositories";
+import { Order } from "../infra/database/entities/Order";
 import RedisCache from "@shared/cache/RedisCache";
 
 export class ShowOrderService {
