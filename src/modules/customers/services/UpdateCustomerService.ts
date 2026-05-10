@@ -1,20 +1,22 @@
 import AppError from "@shared/errors/AppError";
 import { Customers } from "../infra/database/entities/Customers";
-import { customerRepositories } from "../infra/database/repositories/CustomerRepositories";
 import { IUpdateCustomer } from "../domain/models/IUpdateCustomer";
+import { ICustomersRepository } from "../domain/repositories/ICustomersRepositories";
 export default class UpdateCustomerService {
+  constructor(private readonly customerRepositories: ICustomersRepository) {}
+
   public async execute({
     id,
     name,
     email,
   }: IUpdateCustomer): Promise<Customers> {
-    const customer = await customerRepositories.findById(id);
+    const customer = await this.customerRepositories.findById(id);
 
     if (!customer) {
       throw new AppError("Cliente nao encontrado", 404);
     }
 
-    const customerExists = await customerRepositories.findByEmail(email);
+    const customerExists = await this.customerRepositories.findByEmail(email);
 
     if (customerExists && email !== customer.email) {
       throw new AppError("Email ja cadastrado", 409);
@@ -23,7 +25,7 @@ export default class UpdateCustomerService {
     customer.name = name;
     customer.email = email;
 
-    await customerRepositories.save(customer);
+    await this.customerRepositories.save(customer);
 
     return customer;
   }

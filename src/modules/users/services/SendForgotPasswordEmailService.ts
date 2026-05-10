@@ -1,18 +1,29 @@
 import AppError from "@shared/errors/AppError";
-import { usersRepositories } from "../infra/database/repositories/UsersRepositories";
-import { userTokensRepositories } from "../infra/database/repositories/UserTokensRepositories";
 import { sendEmail } from "@config/email";
-import { IForgotPassword } from "../domain/models/IForgotPassword";
+import { inject, injectable } from "tsyringe";
+import { IUsersRepository } from "../domain/repositories/IUserRepositories";
+import { IUserTokensRepository } from "../domain/repositories/IUserTokensRepository";
 
-export default class SendForgotPasswordEmailService {
-  async execute({ email }: IForgotPassword): Promise<void> {
-    const user = await usersRepositories.findByEmail(email);
+interface IRequest {
+  email: string;
+}
+@injectable()
+class SendForgotPasswordEmailService {
+  constructor(
+    @inject("UsersRepository")
+    private usersRepository: IUsersRepository,
+
+    @inject("UserTokensRepository")
+    private userTokensRepository: IUserTokensRepository,
+  ) {}
+  public async execute({ email }: IRequest): Promise<void> {
+    const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
-      throw new AppError("User não existe.", 404);
+      throw new AppError("User not exists.", 404);
     }
 
-    const token = await userTokensRepositories.generate(user.id);
+    const token = await this.userTokensRepository.generate(user.id.toString());
 
     sendEmail({
       to: email,
@@ -31,3 +42,5 @@ export default class SendForgotPasswordEmailService {
     });
   }
 }
+
+export default SendForgotPasswordEmailService;

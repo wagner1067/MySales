@@ -1,4 +1,4 @@
-export interface ISenssionUser {
+export interface ICreateSession {
   email: string;
   password: string;
 }

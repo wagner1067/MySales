@@ -1,15 +1,26 @@
 import AppError from "@shared/errors/AppError";
+import { IUsersRepository } from "../domain/repositories/IUserRepositories";
+import { inject } from "tsyringe";
 import { User } from "../infra/database/entities/User";
-import { usersRepositories } from "../infra/database/repositories/UsersRepositories";
-import { IshowProfile } from "../domain/models/IshowProfile";
 
-export default class ShowProfileService {
-  async execute({ user_id }: IshowProfile): Promise<User> {
-    const user = await usersRepositories.findById(user_id);
+interface IRequest {
+  user_id: number;
+}
+
+class ShowProfileService {
+  constructor(
+    @inject("UsersRepository")
+    private usersRepository: IUsersRepository,
+  ) {}
+  public async execute({ user_id }: IRequest): Promise<User> {
+    const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
-      throw new AppError("User does not exist", 404);
+      throw new AppError("User not found.", 404);
     }
+
     return user;
   }
 }
+
+export default ShowProfileService;

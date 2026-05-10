@@ -1,24 +1,74 @@
 import { AppDataSource } from "@shared/infra/typeorm/data-source";
+
+import {
+  ICustomersRepository,
+  Pagination,
+} from "@modules/customers/domain/repositories/ICustomersRepositories";
+import { ICreateCustomer } from "@modules/customers/domain/models/ICreateUser";
+import { Repository } from "typeorm";
 import { Customers } from "../entities/Customers";
+import { ICustomer } from "@modules/customers/domain/models/ICustomer";
 
-export const customerRepositories = AppDataSource.getRepository(
-  Customers,
-).extend({
-  async findByname(name: string): Promise<Customers | null> {
-    const customer = await this.findOneBy({ name });
+export default class CustomersRepository implements ICustomersRepository {
+  private ormRepository: Repository<Customers>;
+
+  constructor() {
+    this.ormRepository = AppDataSource.getRepository(Customers);
+  }
+
+  async findByName(name: string): Promise<ICustomer[]> {
+    const customers = await this.ormRepository.find({
+      where: { name },
+    });
+
+    return customers;
+  }
+
+  async findById(id: number): Promise<ICustomer | null> {
+    const customer = await this.ormRepository.findOneBy({
+      id,
+    });
 
     return customer;
-  },
+  }
 
-  async findById(id: number): Promise<Customers | null> {
-    const customer = await this.findOneBy({ id });
-
-    return customer;
-  },
-
-  async findByEmail(email: string): Promise<Customers | null> {
-    const customer = await this.findOneBy({ email });
+  async findByEmail(email: string): Promise<ICustomer | null> {
+    const customer = await this.ormRepository.findOneBy({
+      email,
+    });
 
     return customer;
-  },
-});
+  }
+
+  async create({ name, email }: ICreateCustomer): Promise<ICustomer> {
+    const customer = this.ormRepository.create({ name, email });
+
+    await this.ormRepository.save(customer);
+
+    return customer;
+  }
+
+  async save(customer: ICustomer): Promise<ICustomer> {
+    await this.ormRepository.save(customer);
+
+    return customer;
+  }
+
+  async remove(customer: ICustomer): Promise<void> {
+    await this.ormRepository.remove(customer);
+
+    return;
+  }
+
+  async findAndCount({
+    take,
+    skip,
+  }: Pagination): Promise<[ICustomer[], number]> {
+    const [customers, total] = await this.ormRepository.findAndCount({
+      take,
+      skip,
+    });
+
+    return [customers, total];
+  }
+}
