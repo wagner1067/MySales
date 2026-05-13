@@ -2,6 +2,7 @@ import "reflect-metadata";
 import express from "express";
 import cors from "cors";
 import { errors } from "celebrate";
+import "@shared/containers";
 
 import routes from "./routes";
 import ErrorHandleMiddleware from "@shared/middlewares/ErrorHandleMiddleware";

@@ -1,36 +1,51 @@
 import AppError from "@shared/errors/AppError";
-import { Product } from "../infra/database/entities/Product";
-import { productsRepositories } from "../infra/database/repositories/ProductsRepositories";
 import RedisCache from "@shared/cache/RedisCache";
-import { IUpdateProduct } from "../domain/models/IUpdateProduct";
+import { Product } from "../infra/database/entities/Product";
+import { inject, injectable } from "tsyringe";
+import { IProductsRepository } from "../domain/repositories/IProductsRepository";
 
-export default class UpdateProductService {
-  async execute({
+interface IRequest {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+}
+@injectable()
+class UpdateProductService {
+  constructor(
+    @inject("ProductsRepository")
+    private productsRepository: IProductsRepository,
+  ) {}
+  public async execute({
     id,
     name,
     price,
     quantity,
-  }: IUpdateProduct): Promise<Product> {
-    const redisCache = new RedisCache();
-    const product = await productsRepositories.findById(id);
+  }: IRequest): Promise<Product> {
+    const product = await this.productsRepository.findById(id);
+
     if (!product) {
-      throw new AppError("Produto não encontrado", 404);
+      throw new AppError("Product not found.", 404);
     }
 
-    /*const productExists = await productsRepositories.findByName(name);
+    const productExists = await this.productsRepository.findByName(name);
 
-    if (productExists) {
-      throw new AppError("Produto já com esse nome cadastrado", 409);
+    if (productExists && name !== product.name) {
+      throw new AppError("There is already one product with this name");
     }
 
-    product.name = name;*/ //Não pode alterar o nome do produto para evitar confusão no estoque
+    const redisCache = new RedisCache();
+
+    await redisCache.invalidate("api-vendas-PRODUCT_LIST");
+
+    product.name = name;
     product.price = price;
     product.quantity = quantity;
 
-    await productsRepositories.save(product);
+    await this.productsRepository.save(product as unknown as Product);
 
-    await redisCache.invalidate("api-mysales-PRODUCT_LIST");
-
-    return product;
+    return product as unknown as Product;
   }
 }
+
+export default UpdateProductService;

@@ -2,9 +2,14 @@ import { IPagination } from "@shared/interface/pagination.interface";
 import { Customers } from "../infra/database/entities/Customers";
 import { IPaginationCustomer } from "../domain/models/IPaginationCustomer";
 import { ICustomersRepository } from "../domain/repositories/ICustomersRepositories";
+import { inject, injectable } from "tsyringe";
 
+@injectable()
 export default class ListCustomerService {
-  constructor(private readonly customerRepositories: ICustomersRepository) {}
+  constructor(
+    @inject("CustomersRepository")
+    private readonly customerRepositories: ICustomersRepository,
+  ) {}
 
   async execute(
     page: number = 1,
