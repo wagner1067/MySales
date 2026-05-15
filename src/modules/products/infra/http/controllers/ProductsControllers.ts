@@ -13,9 +13,9 @@ export default class ProductsController {
     const { page, skip, take } = request.query;
     const listProductsService = container.resolve(ListProductService);
     const products = await listProductsService.execute({
-      page: Number(page),
-      skip: Number(skip),
-      take: Number(take),
+      page: page ? Number(page) : 1,
+      skip: skip ? Number(skip) : 0,
+      take: take ? Number(take) : 10,
     });
 
     return response.json(products);

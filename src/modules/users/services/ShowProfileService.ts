@@ -1,12 +1,13 @@
 import AppError from "@shared/errors/AppError";
 import { IUsersRepository } from "../domain/repositories/IUserRepositories";
-import { inject } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { User } from "../infra/database/entities/User";
 
 interface IRequest {
   user_id: number;
 }
 
+@injectable()
 class ShowProfileService {
   constructor(
     @inject("UsersRepository")

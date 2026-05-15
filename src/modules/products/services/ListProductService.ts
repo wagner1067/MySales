@@ -1,5 +1,4 @@
 import RedisCache from "@shared/cache/RedisCache";
-import { Product } from "../infra/database/entities/Product";
 import { IProductsRepository } from "../domain/repositories/IProductsRepository";
 import { inject, injectable } from "tsyringe";
 import { IProductPaginate } from "../domain/models/IProductPaginate";

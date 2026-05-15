@@ -11,9 +11,9 @@ export default class UsersController {
     const listUser = container.resolve(ListUserService);
 
     const users = await listUser.execute({
-      page: Number(page),
-      skip: Number(skip),
-      take: Number(take),
+      page: page ? Number(page) : 1,
+      skip: skip ? Number(skip) : 0,
+      take: take ? Number(take) : 10,
     });
 
     return response.json(instanceToInstance(users));
