@@ -1,17 +1,20 @@
+import { customerMock } from "../domain/factories/customerFactory";
 import "reflect-metadata";
 import CreateCustomerService from "./CreateCustomerService";
 import FakeCustomersRepository from "../domain/repositories/fakes/FakeCustomerRepositories";
 import AppError from "@shared/errors/AppError";
 
-describe("CreateCustomerService", () => {
-  it("should create a new customer", async () => {
-    const fakeCustomersRepository = new FakeCustomersRepository();
-    const createCustomer = new CreateCustomerService(fakeCustomersRepository);
+let fakeCustomersRepository: FakeCustomersRepository;
+let createCustomer: CreateCustomerService;
 
-    const customer = await createCustomer.execute({
-      name: "John Doe",
-      email: "L1U8o@example.com",
-    });
+describe("CreateCustomerService", () => {
+  beforeEach(() => {
+    fakeCustomersRepository = new FakeCustomersRepository();
+    createCustomer = new CreateCustomerService(fakeCustomersRepository);
+  });
+
+  it("should create a new customer", async () => {
+    const customer = await createCustomer.execute(customerMock);
 
     expect(customer).toHaveProperty("id");
     expect(customer.name).toBe("John Doe");
@@ -19,19 +22,10 @@ describe("CreateCustomerService", () => {
   });
 
   it("should not create a customer with an existing email", async () => {
-    const fakeCustomersRepository = new FakeCustomersRepository();
-    const createCustomer = new CreateCustomerService(fakeCustomersRepository);
+    await createCustomer.execute(customerMock);
 
-    await createCustomer.execute({
-      name: "John Doe",
-      email: "L1U8o@example.com",
-    });
-
-    await expect(
-      createCustomer.execute({
-        name: "John Doe",
-        email: "L1U8o@example.com",
-      }),
-    ).rejects.toBeInstanceOf(AppError);
+    await expect(createCustomer.execute(customerMock)).rejects.toBeInstanceOf(
+      AppError,
+    );
   });
 });
