@@ -1,7 +1,7 @@
 import AppError from "@shared/errors/AppError";
 import FakeUserRepository from "../domain/repositories/fakes/FakeUserRepositories";
-import { User } from "../infra/database/entities/User";
 import CreateSessionsService from "./SessionUserService";
+import { mockUserData } from "../domain/factories/userFactory";
 
 jest.mock("bcrypt", () => ({
   compare: jest.fn(),
@@ -11,20 +11,6 @@ jest.mock("bcrypt", () => ({
 jest.mock("jsonwebtoken", () => ({
   sign: jest.fn(() => "fake-token"),
 }));
-
-const mockUserData: User[] = [
-  {
-    id: 1,
-    name: "John Doe",
-    email: "johndoe@example.com",
-    password: "hashed-password",
-    created_at: new Date(),
-    updated_at: new Date(),
-    getAvatarUrl() {
-      return "avatar.jpg";
-    },
-  } as User,
-];
 
 let fakeUserRepository: FakeUserRepository;
 let createSessionsService: CreateSessionsService;
