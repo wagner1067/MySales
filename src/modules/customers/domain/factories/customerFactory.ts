@@ -1,4 +1,5 @@
 import { Customers } from "@modules/customers/infra/database/entities/Customers";
+import { ICreateCustomer } from "@modules/customers/domain/models/ICreateUser";
 
 export const customerMock = {
   name: "John Doe",
@@ -22,3 +23,11 @@ export const anotherCustomer = {
   name: "Jack Duplicate",
   email: "jack.duplicate@example.com",
 } as Customers;
+
+export const makeCustomerData = (overrides?: Partial<ICreateCustomer>): ICreateCustomer => {
+  return {
+    name: "Cliente Teste",
+    email: "cliente@teste.com",
+    ...overrides,
+  };
+};

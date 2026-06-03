@@ -14,6 +14,7 @@ interface IRequest {
   customer_id: string;
   products: IProduct[];
 }
+
 @injectable()
 class CreateOrderService {
   constructor(
@@ -24,6 +25,7 @@ class CreateOrderService {
     @inject("ProductsRepository")
     private productsRepository: IProductsRepository,
   ) {}
+
   public async execute({ customer_id, products }: IRequest): Promise<IOrder> {
     const customerExists = await this.customersRepository.findById(
       Number(customer_id),
@@ -55,14 +57,19 @@ class CreateOrderService {
       );
     }
 
+   
     const quantityAvailable = products.filter(
       (product) =>
         existsProducts.filter((p) => p.id === product.id)[0].quantity <
         product.quantity,
     );
 
-    if (!quantityAvailable.length) {
-      throw new AppError(`The quantity is not available for.`, 409);
+   
+    if (quantityAvailable.length > 0) {
+      throw new AppError(
+        `The quantity is not available for product ${quantityAvailable[0].id}.`,
+        409,
+      );
     }
 
     const serializedProducts = products.map((product) => ({
@@ -78,7 +85,9 @@ class CreateOrderService {
 
     const { order_products } = order;
 
-    const updatedProductQuantity = order_products.map((product) => ({
+    const productsToUpdate = order_products || serializedProducts;
+
+    const updatedProductQuantity = productsToUpdate.map((product) => ({
       id: product.product_id,
       quantity:
         existsProducts.filter((p) => p.id === product.product_id)[0].quantity -
