@@ -28,7 +28,7 @@ describe("CreateOrderService", () => {
     const customer = await fakeCustomersRepository.create(makeCustomerData());
 
     const product = await fakeProductsRepository.create(
-      makeProductData({ price: 100.0, quantity: 10 })
+      makeProductData({ price: 100.0, quantity: 10 }),
     );
 
     const order = await createOrder.execute({
@@ -71,22 +71,70 @@ describe("CreateOrderService", () => {
   });
 
   it("should not be able to create an order if stock quantity is insufficient", async () => {
-  const customer = await fakeCustomersRepository.create(makeCustomerData());
+    const customer = await fakeCustomersRepository.create(makeCustomerData());
 
-  const product = await fakeProductsRepository.create(
-    makeProductData({ quantity: 3 })
-  );
+    const product = await fakeProductsRepository.create(
+      makeProductData({ quantity: 3 }),
+    );
 
-  await expect(
-    createOrder.execute({
+    await expect(
+      createOrder.execute({
+        customer_id: String(customer.id),
+        products: [
+          {
+            id: product.id,
+            quantity: 5,
+          },
+        ],
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+  it("should not be able to create an order if any of the products do not exist", async () => {
+    const customer = await fakeCustomersRepository.create(makeCustomerData());
+
+    const realProduct = await fakeProductsRepository.create(
+      makeProductData({ price: 50.0, quantity: 10 }),
+    );
+
+    await expect(
+      createOrder.execute({
+        customer_id: String(customer.id),
+        products: [
+          {
+            id: realProduct.id,
+            quantity: 2,
+          },
+          {
+            id: "produto-fantasma-id-999",
+            quantity: 1,
+          },
+        ],
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+  it("should use serialized products when order_products is not returned by the repository", async () => {
+    const customer = await fakeCustomersRepository.create(makeCustomerData());
+
+    const product = await fakeProductsRepository.create(
+      makeProductData({ price: 100.0, quantity: 10 }),
+    );
+
+    jest.spyOn(fakeOrdersRepository, "create").mockResolvedValueOnce({
+      id: "any-order-id",
+      customer,
+    } as any);
+
+    const order = await createOrder.execute({
       customer_id: String(customer.id),
       products: [
         {
           id: product.id,
-          quantity: 5,
+          quantity: 2,
         },
       ],
-    }),
-  ).rejects.toBeInstanceOf(AppError);
-});
+    });
+
+    const updatedProduct = await fakeProductsRepository.findById(product.id);
+    expect(updatedProduct?.quantity).toBe(8);
+  });
 });

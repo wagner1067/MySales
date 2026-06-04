@@ -1,7 +1,6 @@
 import AppError from "@shared/errors/AppError";
 import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
-import "dotenv/config";
 import "reflect-metadata";
 import { inject, injectable } from "tsyringe";
 import { IUsersRepository } from "../domain/repositories/IUserRepositories";
