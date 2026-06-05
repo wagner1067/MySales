@@ -5,7 +5,6 @@
     "lib": ["es2016"],
     "rootDir": "./",
     "outDir": "./build",
-
     "paths": {
       "@config/*": ["./src/config/*"],
       "@modules/*": ["./src/modules/*"],
