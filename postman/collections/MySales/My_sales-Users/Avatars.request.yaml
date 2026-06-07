@@ -1,0 +1,12 @@
+$kind: http-request
+url: http://localhost:3333/avatars
+method: PATCH
+headers:
+  Authorization: Bearer {{token}}
+body:
+  type: formdata
+  content:
+    - type: file
+      key: avatar
+      src: postman-cloud:///1f0b530a-dbd5-4710-948a-42b2d3e9441a
+order: 4000

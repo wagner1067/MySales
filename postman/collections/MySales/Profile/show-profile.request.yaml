@@ -1,0 +1,10 @@
+$kind: http-request
+name: Show Profile
+method: GET
+url: '{{baseUrl}}/profiles'
+order: 1000
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{token}}'

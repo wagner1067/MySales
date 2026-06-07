@@ -1,0 +1,31 @@
+$kind: http-request
+url: http://localhost:3333/orders
+method: POST
+headers:
+  Authorization: Bearer {{token}}
+body:
+  type: json
+  content: "{\r
+
+    \    \"customer_id\": \"1\",\r
+
+    \    \"products\": [{\r
+
+    \        \"id\": 4,\r
+
+    \        \"quantity\": 2\r
+
+    \    },\r
+
+    \    {\r
+
+    \        \"id\": 5,\r
+
+    \        \"quantity\":2\r
+
+    \    }\r
+
+    \    ]\r
+
+    }"
+order: 1000

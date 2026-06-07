@@ -1,0 +1,13 @@
+$kind: http-request
+url: http://localhost:3333/profiles
+method: PATCH
+headers:
+  Authorization: Bearer {{token}}
+body:
+  type: json
+  content: "{\r
+
+    \    \"name\": \"Wagner Batista Oliveira\"\r
+
+    }"
+order: 2000

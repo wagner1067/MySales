@@ -1,0 +1,9 @@
+$kind: http-request
+url: http://localhost:3333/customers?limit=2&page=1
+method: GET
+headers:
+  Authorization: Bearer {{token}}
+queryParams:
+  limit: "2"
+  page: "1"
+order: 2000

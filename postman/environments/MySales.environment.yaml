@@ -1,0 +1,10 @@
+name: MySales
+values:
+  - key: baseUrl
+    value: 'http://localhost:3333'
+    enabled: true
+    type: default
+  - key: token
+    value: ''
+    enabled: true
+    type: default

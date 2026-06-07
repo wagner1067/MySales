@@ -1,0 +1,13 @@
+$kind: http-request
+url: http://localhost:3333/sessions
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"email\": \"barra-wag@hotmail.com\",\r
+
+    \    \"password\": \"123456\"\r
+
+    }"
+order: 3000

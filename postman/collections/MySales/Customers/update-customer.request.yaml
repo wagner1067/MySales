@@ -1,0 +1,23 @@
+$kind: http-request
+name: Update Customer
+method: PATCH
+url: '{{baseUrl}}/customers/:id'
+order: 4000
+headers:
+  - key: Content-Type
+    value: application/json
+pathVariables:
+  - key: id
+    value: ''
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{token}}'
+body:
+  type: json
+  content: |-
+    {
+      "name": "Jane Updated",
+      "email": "jane.updated@example.com"
+    }

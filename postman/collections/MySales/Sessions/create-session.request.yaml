@@ -1,0 +1,15 @@
+$kind: http-request
+name: Create Session (Login)
+method: POST
+url: '{{baseUrl}}/sessions'
+order: 1000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "john@example.com",
+      "password": "123456"
+    }

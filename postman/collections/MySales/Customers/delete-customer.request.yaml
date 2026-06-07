@@ -1,0 +1,13 @@
+$kind: http-request
+name: Delete Customer
+method: DELETE
+url: '{{baseUrl}}/customers/:id'
+order: 5000
+pathVariables:
+  - key: id
+    value: ''
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{token}}'

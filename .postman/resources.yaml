@@ -1,0 +1,8 @@
+workspace:
+  id: d11712a1-0ff7-4765-8920-1ce9866fd9f5
+localResources:
+  collections:
+    - ../postman/collections/MySales
+cloudResources:
+  collections:
+    ../postman/collections/MySales: 38603911-79dc8b7f-b34f-4e68-aba2-93ee7a5e5e6e

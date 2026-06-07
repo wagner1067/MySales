@@ -1,0 +1,15 @@
+$kind: http-request
+url: http://localhost:3333/customers
+method: POST
+headers:
+  Authorization: Bearer {{token}}
+body:
+  type: json
+  content: "{\r
+
+    \    \"name\": \"Luzia\",\r
+
+    \    \"email\": \"Luzia.teste@example.com\"\r
+
+    }"
+order: 1000

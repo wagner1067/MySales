@@ -1,0 +1,13 @@
+$kind: http-request
+url: http://localhost:3333/products/6
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \    \"price\": \"700.00\",\r
+
+    \    \"quantity\": 17\r
+
+    }"
+order: 5000

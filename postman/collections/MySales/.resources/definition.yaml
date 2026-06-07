@@ -1,0 +1,48 @@
+$kind: collection
+name: MySales
+description: |-
+  # 🛒 MySales API - Documentação das Rotas
+
+  Bem-vindo à documentação oficial da API **MySales**. Esta API foi desenvolvida em **TypeScript, Node.js e Express**, utilizando **TypeORM** para persistência de dados e **Redis** para estratégias de Cache e Rate Limiting.
+
+  Abaixo você encontrará os detalhes de consumo para cada módulo do sistema.
+
+  ---
+
+  ## 🔐 Autenticação e Variáveis
+
+  A maioria das rotas desta API exige autenticação via **JWT (JSON Web Token)**.
+
+  - **Base URL:** `http://localhost:3333`
+      
+  - **Token:** Após realizar o login no módulo de Usuários, copie o token gerado e configure-o na aba **Authorization** desta coleção (selecione o tipo `Bearer Token`) ou utilize a variável de ambiente local para que seja aplicado automaticamente em todas as requisições.
+      
+
+  ---
+
+  ## 📁 Estrutura dos Módulos
+
+  A coleção está dividida nas seguintes categorias:
+
+  - **👥 Users & Profile:** Registro de usuários, atualização de dados cadastrais e upload de avatar.
+      
+  - **🔑 Password:** Fluxo de recuperação e redefinição de senhas.
+      
+  - **📦 Products:** CRUD de produtos e gerenciamento de estoque.
+      
+  - **🤝 Customers:** Cadastro e gerenciamento de clientes da plataforma.
+      
+  - **🛍️ Orders:** Criação e listagem de pedidos/vendas associando clientes e múltiplos produtos.
+      
+
+  ---
+
+  ## 🛠️ Como testar localmente
+
+  1. Certifique-se de que o servidor local está rodando (`npm run dev`).
+      
+  2. Garanta que o banco de dados PostgreSQL e o serviço do Redis estejam ativos.
+      
+  3. Utilize as requisições de exemplo configuradas em cada pasta passando os corpos (JSON) sugeridos.
+variables:
+  baseUrl: http://localhost:3333

@@ -1,0 +1,15 @@
+$kind: http-request
+url: http://localhost:3333/products
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"name\": \"Nike\",\r
+
+    \    \"price\": \"700.00\",\r
+
+    \    \"quantity\": 10\r
+
+    }"
+order: 4000

@@ -1,0 +1,4 @@
+$kind: http-request
+url: http://localhost:3333/health
+method: GET
+order: 1000

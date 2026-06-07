@@ -1,0 +1,8 @@
+$kind: http-request
+name: Show Product
+method: GET
+url: '{{baseUrl}}/products/:id'
+order: 2000
+pathVariables:
+  - key: id
+    value: ''

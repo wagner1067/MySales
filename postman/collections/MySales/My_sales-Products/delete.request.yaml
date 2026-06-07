@@ -1,0 +1,15 @@
+$kind: http-request
+url: http://localhost:3333/products/3
+method: DELETE
+body:
+  type: text
+  content: "{\r
+
+    \    \"name\": \"Camisa\",\r
+
+    \    \"price\": 700.00,\r
+
+    \    \"quantity\": 10\r
+
+    }"
+order: 6000

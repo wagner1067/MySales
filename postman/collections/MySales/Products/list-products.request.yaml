@@ -1,0 +1,12 @@
+$kind: http-request
+name: List Products
+method: GET
+url: '{{baseUrl}}/products'
+order: 1000
+queryParams:
+  - key: page
+    value: '1'
+  - key: skip
+    value: '0'
+  - key: take
+    value: '10'
