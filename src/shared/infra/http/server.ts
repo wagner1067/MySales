@@ -16,7 +16,10 @@ const startServer = async () => {
   app.use(cors());
   app.use(express.json());
 
-  app.use(rateLimiter);
+  if (process.env.NODE_ENV !== "test") {
+    app.use(rateLimiter);
+  }
+
   app.use(routes);
   app.use(errors());
   app.use(ErrorHandleMiddleware.handleError);

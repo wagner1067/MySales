@@ -9,7 +9,9 @@
     "lint-fix": "eslint . --ext .ts --fix",
     "migration:create": "cross-env MIGRATION_NAME=$npm_config_name ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create src/shared/infra/typeorm/migrations/$npm_config_name",
     "migration:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d src/shared/infra/typeorm/data-source.ts",
-    "test": "cross-env NODE_ENV=test jest",
+    "test": "cross-env NODE_ENV=test jest --selectProjects unit && cross-env NODE_ENV=test jest tests --runInBand --forceExit",
+    "test:unit": "cross-env NODE_ENV=test jest --selectProjects unit",
+    "test:integration": "cross-env NODE_ENV=test jest tests --runInBand --forceExit",
     "migration:run:test": "cross-env NODE_ENV=test ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d src/shared/infra/typeorm/data-source.ts"
   },
   "keywords": [],
