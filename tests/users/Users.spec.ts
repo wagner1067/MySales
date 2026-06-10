@@ -4,7 +4,6 @@ import { authenticate } from "../helpers/authenticate";
 import {
   cleanupDatabase,
   setupIntegrationTest,
-  teardownIntegrationTest,
 } from "../helpers/setupIntegrationTest";
 
 describe("Users Integration Tests", () => {
@@ -14,12 +13,8 @@ describe("Users Integration Tests", () => {
     app = await setupIntegrationTest();
   });
 
-  afterEach(async () => {
+  beforeEach(async () => {
     await cleanupDatabase();
-  });
-
-  afterAll(async () => {
-    await teardownIntegrationTest();
   });
 
   describe("Create User", () => {

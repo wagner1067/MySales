@@ -3,7 +3,6 @@ import { Express } from "express";
 import {
   cleanupDatabase,
   setupIntegrationTest,
-  teardownIntegrationTest,
 } from "../helpers/setupIntegrationTest";
 
 describe("Products Integration Tests", () => {
@@ -13,12 +12,8 @@ describe("Products Integration Tests", () => {
     app = await setupIntegrationTest();
   });
 
-  afterEach(async () => {
+  beforeEach(async () => {
     await cleanupDatabase();
-  });
-
-  afterAll(async () => {
-    await teardownIntegrationTest();
   });
 
   describe("Create Product", () => {

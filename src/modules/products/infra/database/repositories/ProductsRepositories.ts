@@ -47,7 +47,7 @@ class ProductsRepository implements IProductsRepository {
   }
 
   public async findByName(name: string): Promise<IProduct | null> {
-    const product = this.ormRepository.findOneBy({
+    const product = await this.ormRepository.findOneBy({
       name,
     });
 
@@ -55,7 +55,7 @@ class ProductsRepository implements IProductsRepository {
   }
 
   public async findById(id: string): Promise<IProduct | null> {
-    const product = this.ormRepository.findOneBy({ id });
+    const product = await this.ormRepository.findOneBy({ id });
 
     return product as unknown as IProduct;
   }

@@ -4,7 +4,6 @@ import { authenticate } from "../helpers/authenticate";
 import {
   cleanupDatabase,
   setupIntegrationTest,
-  teardownIntegrationTest,
 } from "../helpers/setupIntegrationTest";
 import { createCustomerViaApi, createProductViaApi } from "../helpers/seed";
 
@@ -15,12 +14,8 @@ describe("Orders Integration Tests", () => {
     app = await setupIntegrationTest();
   });
 
-  afterEach(async () => {
+  beforeEach(async () => {
     await cleanupDatabase();
-  });
-
-  afterAll(async () => {
-    await teardownIntegrationTest();
   });
 
   describe("Create Order", () => {

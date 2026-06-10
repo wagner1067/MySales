@@ -27,6 +27,7 @@ module.exports = {
       displayName: "integration",
       testMatch: ["<rootDir>/tests/**/*.spec.ts"],
       maxWorkers: 1,
+      globalTeardown: "<rootDir>/tests/globalTeardown.ts",
     },
   ],
 };

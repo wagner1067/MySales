@@ -4,56 +4,17 @@ import { authenticate } from "../helpers/authenticate";
 import {
   cleanupDatabase,
   setupIntegrationTest,
-  teardownIntegrationTest,
 } from "../helpers/setupIntegrationTest";
 
-describe("Integration Tests", () => {
+describe("Customers Integration Tests", () => {
   let app: Express;
 
   beforeAll(async () => {
     app = await setupIntegrationTest();
   });
 
-  afterEach(async () => {
+  beforeEach(async () => {
     await cleanupDatabase();
-  });
-
-  afterAll(async () => {
-    await teardownIntegrationTest();
-  });
-
-  describe("Create User", () => {
-    it("should be able to create a new user", async () => {
-      const response = await request(app).post("/users").send({
-        name: "John Doe",
-        email: "jhondoe@example.com",
-        password: "123456",
-      });
-
-      expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty("id");
-      expect(response.body.email).toBe("jhondoe@example.com");
-    });
-
-    it("should not be able to create a user with an existing email", async () => {
-      await request(app).post("/users").send({
-        name: "John Doe",
-        email: "jhondoeduplicate@example.com",
-        password: "123456",
-      });
-
-      const response = await request(app).post("/users").send({
-        name: "Jane Doe",
-        email: "jhondoeduplicate@example.com",
-        password: "654321",
-      });
-
-      expect(response.status).toBe(409);
-      expect(response.body).toHaveProperty(
-        "message",
-        "Email address already used.",
-      );
-    });
   });
 
   describe("Create Customer", () => {
@@ -328,7 +289,10 @@ describe("Integration Tests", () => {
         .set("Authorization", `Bearer ${token}`);
 
       expect(response.status).toBe(404);
-      expect(response.body).toHaveProperty("message", "Customer nao encontrado");
+      expect(response.body).toHaveProperty(
+        "message",
+        "Customer nao encontrado",
+      );
     });
 
     it("should not be able to delete a customer without authentication", async () => {
